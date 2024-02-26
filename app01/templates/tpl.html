@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>template   !!</h1>
+    <div>{{ n1 }}</div>
+    <div>{{ n2.0 }}</div>
+    <div>{{ n2.1 }}</div>
+    <div>
+        {% for item in n2 %}
+        <span>
+            {{item}}
+        </span>
+        {% endfor %}
+
+    </div>
+</hr>
+{{n3.name}}
+{{n3.age}}
+<ul>
+    <!-- n3.keys;n3.values;n3.items or % for item in n3.values % -->
+    
+    {% for k,v in n3.items %}
+    <li>
+        <!-- {{ item }} -->
+        {{k}} = {{v}}
+    </li>
+    {% endfor %}
+</ul>
+<hr>
+{{n4.1}}
+{{n4.1.name}}
+
+    {% for item in n4 %}
+    <div>
+        {{item.name}} :  {{item.age}}
+    </div>
+    {% endfor %}
+
+</hr>
+{% if n1 == "Alex" %}
+<h1>hahah</h1>
+{% elif n1 == "alex" %}
+<h1>jhhah</h1>
+{% else %}
+<h1>kkk</h1>
+{% endif %}
+
+
+
+</body>
+</html>
