@@ -1,42 +1,52 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <div class="container">
-        <div style="margin-bottom: 10px">
-            <a class="btn btn-success" href="/depart/add/">
-                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                ADD Department
-            </a>
+<div class="container">
+    <div style="margin-bottom: 10px">
+        <a class="btn btn-success" href="/depart/add/">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            ADD Department
+        </a>
+    </div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            Department List
         </div>
-        <div class="panel panel-default">
-            <!-- Default panel contents -->
-            <div class="panel-heading">
-                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                Department List
-            </div>
 
-            <!-- Table -->
-            <table class="table table-bordered">
-                <thead>
+        <!-- Search Form -->
+        <div class="panel-body">
+            <form method="GET" action="/depart/search/">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="keyword" placeholder="Search...">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        <!-- Table -->
+        <table class="table table-bordered">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Operation</th>
                 </tr>
-                </thead>
-                <tbody>
-                {% for obj in queryset %}
-                    <tr>
-                        <th>{{ obj.id }}</th>
-                        <td>{{ obj.title }}</td>
-                        <td>
-                            <a class="btn btn-primary btn-xs" href="/depart/{{ obj.id }}/edit/">Edit</a>
-                            <a class="btn btn-danger btn-xs" href="/depart/delete/?nid={{ obj.id }}">Delete</a>
-                        </td>
-                    </tr>
+            </thead>
+            <tbody>
+                {% for department in departments %}
+                <tr>
+                    <td>{{ department.id }}</td>
+                    <td>{{ department.title }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" href="/depart/{{ department.id }}/edit/">Edit</a>
+                        <a class="btn btn-danger btn-xs" href="/depart/delete/?nid={{ department.id }}">Delete</a>
+                    </td>
+                </tr>
                 {% endfor %}
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
     </div>
+</div>
 {% endblock %}

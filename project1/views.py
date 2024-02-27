@@ -3,54 +3,60 @@ from project1 import models
 # Create your views here.
 def depart_list(request):
     """Department"""
-
-    queryset = models.Department.objects.all()
-    return render(request, "depart_list.html", {"queryset": queryset})
-
-
-# def depart_add(request):
-#     """add department"""
-#     if request.method == "GET":
-#         return render(request, "depart_add.html")
-
-#     # get the data from POST sumbmit（title is null）
-#     title = request.POST.get("title")
-
-#     # keep to database
-#     models.Department.objects.create(title=title)
-
-#     # back to list page
-#     return redirect("/depart/list/")
+    departments = models.Department.objects.all()
+    return render(request, "depart_list.html", {"departments": departments})
 
 
-# def depart_delete(request):
-#     """Deleter"""
-#     # get ID http://127.0.0.1:8000/depart/delete/?nid=1
-#     nid = request.GET.get("nid")
-
-#     # delete
-#     models.Department.objects.filter(id=nid).delete()
-
-#     #back
-#     return redirect("/depart/list/")
+def department_search(request):
+    # search function
+    keyword = request.GET.get("keyword")
+    departments = models.Department.objects.filter(title__icontains=keyword)
+    return render(request, "depart_list.html", {"departments": departments})
 
 
-# def depart_edit(request, nid):
-#     """edit"""
-#     if request.method == "GET":
-#         # nid，get  [obj,]
-#         row_object = models.Department.objects.filter(id=nid).first()
-#         return render(request, "depart_edit.html", {"row_object": row_object})
+def depart_add(request):
+    """add department"""
+    if request.method == "GET":
+        return render(request, "depart_add.html")
 
-#     # 
-#     title = request.POST.get("title")
+    #     # get the data from POST sumbmit（title is null）
+    title = request.POST.get("title")
+    # user = request.POST.get("user")
 
-#     # throut ID to find 
-#     # models.Department.objects.filter(id=nid).update(title=title,其他=123)
-#     models.Department.objects.filter(id=nid).update(title=title)
+    #     # keep to database crete(title=title,user=user)
+    models.Department.objects.create(title=title)
 
-#     # 
-#     return redirect("/depart/list/")
+    #     # back to list page
+    return redirect("/depart/list/")
+
+
+def depart_delete(request):
+    """Deleter"""
+    # get ID http://127.0.0.1:8000/depart/delete/?nid=1
+    nid = request.GET.get("nid")
+
+    # delete
+    models.Department.objects.filter(id=nid).delete()
+
+    # back
+    return redirect("/depart/list/")
+
+# depart_list.html need to set : /depart/{{ obj.id }}/edit/
+def depart_edit(request, nid):
+    """edit"""
+    if request.method == "GET":
+        # nid，get  [obj,]
+        row_object = models.Department.objects.filter(id=nid).first()
+        return render(request, "depart_edit.html", {"row_object": row_object})
+
+    title = request.POST.get("title")
+
+    # throut ID to find
+    # models.Department.objects.filter(id=nid).update(title=title,其他=123)
+    models.Department.objects.filter(id=nid).update(title=title)
+
+    #
+    return redirect("/depart/list/")
 
 
 # def user_list(request):
@@ -59,12 +65,12 @@ def depart_list(request):
 #     # get all user list [obj,obj,obj]
 #     queryset = models.UserInfo.objects.all()
 #     """
-#     # 
+#     #
 #     for obj in queryset:
 #         print(obj.id, obj.name, obj.account, obj.create_time.strftime("%Y-%m-%d"), obj.gender, obj.get_gender_display(), obj.depart_id, obj.depart.title)
 #         # print(obj.name, obj.depart_id)
-#         # obj.depart_id  # 
-#         # obj.depart.title  # 
+#         # obj.depart_id  #
+#         # obj.depart.title  #
 #     """
 #     return render(request, "user_list.html", {"queryset": queryset})
 
