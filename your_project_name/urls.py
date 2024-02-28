@@ -22,7 +22,7 @@ urlpatterns = [
     path("depart/delete/", project1_views.depart_delete),
     path("depart/<int:nid>/edit/", project1_views.depart_edit),
     path("depart/search/", project1_views.department_search),
-    # path("user/list/", project1_views.user_list),
-    # path("user/add/", project1_views.user_add),
-    # path("user/model/form/add/", project1_views.user_model_form_add),
+    path("user/list1/", project1_views.user_list1),
+    path("user/add1/", project1_views.user_add1),
+    path("user/model/form/add/", project1_views.user_model_form_add),
 ]
